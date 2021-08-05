@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 import datetime
-from multiprocessing import Queue
+from multiprocessing import Queue, Process
 
 
 # 실시간으로 들어오는 데이터를 보고 주문 여부를 판단하는 스레드
