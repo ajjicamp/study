@@ -13,7 +13,7 @@ class Worker():
         self.q = queue
         # self.msg = f'{argv} Worker Process\n'*3
         print('이름: ', __name__)
-        print('c_p이름: ', current_process())
+        print('이름: ', current_process())
         print('parent process:', os.getppid())
         print('process id:', os.getpid())
         self.run()
