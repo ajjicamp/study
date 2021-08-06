@@ -1,6 +1,6 @@
 import sys
 import os
-from multiprocessing import Process, Queue
+from multiprocessing import Process, Queue, current_process
 from threading import Thread
 from PyQt5 import QtWidgets
 import time
@@ -13,6 +13,7 @@ class Worker():
         self.q = queue
         # self.msg = f'{argv} Worker Process\n'*3
         print('이름: ', __name__)
+        print('이름: ', current_process())
         print('parent process:', os.getppid())
         print('process id:', os.getpid())
         self.run()
