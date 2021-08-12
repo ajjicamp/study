@@ -28,16 +28,31 @@ class MyWindow(QMainWindow,form_class01):
         # print('pname: ', current_process().name)
         # print('main:', self)
         self.show()
+
+
+        stime = time.time()
+        t = 1
+        x = 0
+        xv = 0
+        for i in range(10000000):
+            t = t+i
+            x = t*t
+            xv += x
+        print(f'xv: {xv}')
+        print(f'runtime: {time.time() - stime}')
+
+        SubWindow(self, self.q, stime)
+
         app.exec_()
 
-    def SubWindow_clicked(self):
-        SubWindow(self, self.q)
+    def SubWindow_clicked(self, stime):
+        SubWindow(self, self.q, stime)
 
     def SubWindow02_clicked(self):
         SubWindow02(self, self.q)
 
 class SubWindow(QMainWindow, form_class02):
-    def __init__(self, parent, queue):
+    def __init__(self, parent, queue, stime):
         # app = QApplication(sys.argv)
         super(SubWindow, self).__init__(parent)
         print('self:', self)
@@ -46,6 +61,17 @@ class SubWindow(QMainWindow, form_class02):
         self.draw02()
         self.show()
         print('sub01: ', current_process().name)
+
+        # stime = time.time()
+        t = 1
+        x = 0
+        xv = 0
+        for i in range(10000000):
+            t = t+i
+            x = t*t
+            xv += x
+        print(f'xv: {xv}')
+        print(f'sub_runtime: {time.time() - stime}')
 
     def draw02(self):
         item = QTableWidgetItem('str_test')
@@ -63,13 +89,14 @@ class SubWindow02(QDialog, form_class03):
 
 
 if __name__ == '__main__':
-    # queue = Queue()
+    queue = Queue()
     # # app = QApplication(sys.argv)
-    # Process(target=MyWindow, args=(queue,)).start()
-    p = Pool(5)
-    p.map(MyWindow, [1])
+    Process(target=MyWindow, args=(1,)).start()
+    # start = time.time()
+    # p = Pool(1)
+    # p.map(MyWindow, [1])
+    #
+    # mainwindow = MyWindow(1)
 
-
-    # mainwindow = MyWindow()
     # mainwindow.show()
     # app.exec_()
