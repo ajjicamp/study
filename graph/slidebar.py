@@ -9,7 +9,7 @@ from matplotlib.widgets import Slider
 import numpy as np
 
 # con = sqlite3.connect('mh_real.db')
-con = sqlite3.connect('../mh_trader/db/mh.db')
+con = sqlite3.connect('../../mh_trader/db/mh.db')
 df = pd.read_sql("SELECT * FROM 주식체결", con, index_col=None)
 df01 = pd.read_sql("SELECT * FROM 주식호가잔량", con, index_col=None)
 

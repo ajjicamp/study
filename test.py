@@ -1,44 +1,56 @@
-# 한 figure에 y축을 왼쪽 2개, 오른쪽 한개 도합 3개를 설정하는 방법
-import matplotlib.pyplot as plt
-def make_patch_spines_invisible(ax):
-    ax.set_frame_on(True)
-    ax.patch.set_visible(False)
-    for sp in ax.spines.values():
-        sp.set_visible(False)
-fig, host= plt.subplots()
-fig.subplots_adjust(left=0.25)
-par1= host.twinx()
-par2= host.twinx()
-# Offset the right spine of par2.  The ticks and label have already been
-# placed on the right by twinx above.
-par2.spines["left"].set_position(("axes", -0.2))
-par2.yaxis.tick_left()
-par2.yaxis.set_label_position("left")
-# Having been created by twinx, par2 has its frame off, so the line of its
-# detached spine is invisible.  First, activate the frame but make the patch
-# and spines invisible.
-make_patch_spines_invisible(par2)
-# Second, show the right spine.
-par2.spines["left"].set_visible(True)
-p1,= host.plot([0, 1, 2], [0, 1, 2], "b-", label="Density")
-p2,= par1.plot([0, 1, 2], [0, 3, 2], "r-", label="Temperature")
-p3,= par2.plot([0, 1, 2], [50, 30, 15], "g-", label="Velocity")
-host.set_xlim(0, 2)
-host.set_ylim(0, 2)
-par1.set_ylim(0, 4)
-par2.set_ylim(1, 65)
-host.set_xlabel("Distance")
-host.set_ylabel("Density")
-par1.set_ylabel("Temperature")
-par2.set_ylabel("Velocity")
-host.yaxis.label.set_color(p1.get_color())
-par1.yaxis.label.set_color(p2.get_color())
-par2.yaxis.label.set_color(p3.get_color())
-tkw= dict(size=4, width=1.5)
-host.tick_params(axis='y', colors=p1.get_color(), **tkw)
-par1.tick_params(axis='y', colors=p2.get_color(), **tkw)
-par2.tick_params(axis='y', colors=p3.get_color(), **tkw)
-host.tick_params(axis='x', **tkw)
-lines= [p1, p2, p3]
-host.legend(lines, [l.get_label() for l in lines])
-plt.show()
+import sys
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import *
+from PyQt5.QtGui import QFont, QColor
+
+class Wintest(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(Wintest, self).__init__()
+        qfont20 = QFont()
+        qfont20.setFamily('나눔고딕')
+        qfont20.setPixelSize(20)
+        self.qfont20 = qfont20
+
+        self.setGeometry(800,400,1000,500)
+        self.setWindowTitle("mainwindow$$")
+        self.resize(1000, 500)
+        # self.show()
+
+        # pushbutton = QtWidgets.QPushButton('test', self)
+        # pushbutton.clicked.connect(lambda: self.pushbutton_clicked('why lambda??'))
+
+        # self.dialog = QtWidgets.QDialog()
+        self.dialog = QtWidgets.QWidget()
+        # pushbutton01 = QtWidgets.QPushButton()
+        # self.setPushbutton()
+        # pushbutton01 = self.setPushbutton('test', self, self.pushbutton_clicked, 'why')
+
+    # def setPushbutton(self):     # 함수가 반드시 필요한 건 아니다.
+        # app = QtWidgets.QApplication(sys.argv)
+        btn = QtWidgets.QPushButton('test', self.dialog)
+        btn.setFont(self.qfont20)
+        btn.move(100,100)
+        btn.clicked.connect(lambda: self.pushbutton_clicked('how'))
+        # btn.setWindowModality(Qt.NonModal)
+        # btn.setGeometry(100, 100, 100, 50)
+        btn.resize(100, 50)
+
+        # QDialog 세팅
+        self.dialog.setWindowTitle('Dialog')
+        # self.dialog.setWindowModality(Qt.ApplicationModal)
+        self.dialog.setWindowModality(Qt.NonModal)
+        self.dialog.resize(500, 400)
+        # todo 이것이 중요
+        self.dialog.show()
+
+        # btn.show()
+        # app.exec_()
+
+    def pushbutton_clicked(self, msg):
+        print('button clicked', msg)
+
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    wintest = Wintest()
+    wintest.show()
+    app.exec_()

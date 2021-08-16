@@ -92,7 +92,6 @@ if __name__ == '__main__':
     queue = Queue()
     # # app = QApplication(sys.argv)
     Process(target=MyWindow, args=(1,)).start()
-    # start = time.time()
     # p = Pool(1)
     # p.map(MyWindow, [1])
     #
