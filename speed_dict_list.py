@@ -80,19 +80,19 @@ def tuple_put_data(num, q):
         tup = (a, b, c, d, e, f, g)
         q.put(['tuple',tup, 'real'])
 
-    # print(li)    return {'tup_소요시간': time.time() - start}
+    return {'tup_소요시간': time.time() - start}
 
 def data_recp(q, num, **kwargs):
     start = time.time()
     hap = 0
     sum = []
-    for i in range(num):
-    # while True:
+    # for i in range(num):
+    while True:
         data = q.get()
         sum.append(data)
-        # hap += 1
-        # if hap >= num - 1:
-        #     break
+        hap += 1
+        if hap >= num - 1:
+            break
         # print(type(data))
     print('data', data)
     print('recp소요시간', time.time() - start)
