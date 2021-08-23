@@ -1,6 +1,6 @@
 import random
 import time
-from multiprocessing import Process, Queue
+from multiprocessing import Process, Queue, current_process
 import pandas as pd
 
 def dict_put_data(num, q):
@@ -85,15 +85,25 @@ def tuple_put_data(num, q):
 def data_recp(q, num, **kwargs):
     start = time.time()
     hap = 0
-    sum = []
+    # sum = []
     # for i in range(num):
     while True:
+        if hap == 1:
+            print('현재프로세서', current_process())
+            print('qsize', q.qsize())
+        if hap == 1000:
+            print('qsize', q.qsize())
+        if hap == 100000:
+            print('qsize', q.qsize())
+
         data = q.get()
-        sum.append(data)
+        # sum.append(data)
         hap += 1
         if hap >= num - 1:
             break
-        # print(type(data))
+
+    print(type(data))
+    print('hap', hap)
     print('data', data)
     print('recp소요시간', time.time() - start)
 
