@@ -1,14 +1,15 @@
-import sys
-from PyQt5 import QtWidgets, uic
-formclass = form_class = uic.loadUiType('C:/Users/USER/PycharmProjects/study/mwindow.ui')[0]
+from multiprocessing import Process, Lock
 
-class MainWindow(QtWidgets.QMainWindow, form_class):
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)
-        self.show()
+def f(i):
+    # l.acquire()
+    # try:
+    print('hello world', i)
+    # finally:
+        # l.release()
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
-    mainwindow = MainWindow()
-    app.exec_()
+    lock = Lock()
+
+    for num in range(10):
+    #     Process(target=f, args=(lock, num)).start()
+        Process(target=f, args=(num,)).start()
